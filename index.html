@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
    <meta charset="UTF-8">
@@ -9,8 +9,9 @@
    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
    <script type="text/javascript">
        (function(){
-          // IMPORTANTE: Insira sua Public Key do EmailJS aqui
-          emailjs.init("service_9fhi7te");
+          // CORREÇÃO: O valor precisa estar entre aspas.
+          // ATENÇÃO: Substitua pelo valor correto da sua PUBLIC KEY (Chave Pública) do painel do EmailJS.
+          emailjs.init("-jzxF_1aClukwPgEd");
        })();
    </script>
 </head>
@@ -139,29 +140,26 @@
 
            if (form) {
                form.addEventListener('submit', (e) => {
-                   e.preventDefault(); // Impede a página de recarregar
+                   e.preventDefault(); 
                    
-                   // Feedback visual: desabilita o botão para evitar cliques duplicados
                    btnEnviar.innerText = "Enviando...";
                    btnEnviar.disabled = true;
 
                    const nome = document.getElementById('nome').value;
 
-                   // IMPORTANTE: Substitua com as IDs geradas no seu painel EmailJS
-                   const serviceID = 'SEU_SERVICE_ID_AQUI';
-                   const templateID = 'SEU_TEMPLATE_ID_AQUI';
+                   // Ajuste aqui com os seus IDs reais do painel do EmailJS (entre aspas)
+                   const serviceID = 'service_9fhi7te'; // Seu Service ID inserido aqui corretamente
+                   const templateID = 'SEU_TEMPLATE_ID_AQUI'; 
 
-                   // Dispara o e-mail pegando os dados estruturados do formulário
                    emailjs.sendForm(serviceID, templateID, form)
                        .then(() => {
                            alert(`Obrigado pelo contato, ${nome}! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.`);
-                           form.reset(); // Limpa os campos do formulário após o sucesso
+                           form.reset(); 
                        }, (err) => {
                            alert("Ops! Ocorreu um erro técnico ao enviar sua mensagem. Por favor, tente novamente mais tarde ou use o WhatsApp.");
                            console.error("Erro detalhado do EmailJS:", err);
                        })
                        .finally(() => {
-                           // Restaura o botão ao estado padrão após o término da requisição
                            btnEnviar.innerText = "Enviar Mensagem";
                            btnEnviar.disabled = false;
                        });
