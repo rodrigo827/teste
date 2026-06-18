@@ -5,6 +5,14 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title> RL | Soluções Digitais Inteligentes</title>
    <link rel="stylesheet" href="style.css">
+   
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+   <script type="text/javascript">
+       (function(){
+          // IMPORTANTE: Insira sua Public Key do EmailJS aqui
+          emailjs.init("SUA_PUBLIC_KEY_AQUI");
+       })();
+   </script>
 </head>
 <body>
 
@@ -85,10 +93,10 @@
 
        <div class="contact-container">
            <form class="contact-form" id="contactForm">
-               <input type="text" placeholder="Seu Nome" required>
-               <input type="email" placeholder="Seu E-mail" required>
-               <textarea placeholder="Fale um pouco sobre o seu projeto..." rows="5" required></textarea>
-               <button type="submit" class="btn-submit">Enviar Mensagem</button>
+               <input type="text" id="nome" name="from_name" placeholder="Seu Nome" required>
+               <input type="email" id="email" name="reply_to" placeholder="Seu E-mail" required>
+               <textarea id="mensagem" name="message" placeholder="Fale um pouco sobre o seu projeto..." rows="5" required></textarea>
+               <button type="submit" class="btn-submit" id="btnEnviar">Enviar Mensagem</button>
            </form>
        </div>
    </section>
@@ -111,7 +119,6 @@
                link.addEventListener('click', (e) => {
                    const targetId = link.getAttribute('href');
                    
-                   // Verifica se o link é uma âncora interna
                    if (targetId.startsWith('#')) {
                        e.preventDefault();
                        const targetSection = document.querySelector(targetId);
@@ -126,17 +133,38 @@
                });
            });
 
-           // 2. VALIDAÇÃO E ENVIO DO FORMULÁRIO DE CONTATO
+           // 2. VALIDAÇÃO E ENVIO DO FORMULÁRIO DE CONTATO (INTEGRADO COM EMAILJS)
            const form = document.getElementById('contactForm');
+           const btnEnviar = document.getElementById('btnEnviar');
+
            if (form) {
                form.addEventListener('submit', (e) => {
                    e.preventDefault(); // Impede a página de recarregar
                    
-                   // Captura o nome digitado para personalizar o alerta
-                   const nome = form.querySelector('input[type="text"]').value;
-                   
-                   alert(`Obrigado pelo contato, ${nome}! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.`);
-                   form.reset(); // Limpa os campos do formulário após o envio
+                   // Feedback visual: desabilita o botão para evitar cliques duplicados
+                   btnEnviar.innerText = "Enviando...";
+                   btnEnviar.disabled = true;
+
+                   const nome = document.getElementById('nome').value;
+
+                   // IMPORTANTE: Substitua com as IDs geradas no seu painel EmailJS
+                   const serviceID = 'SEU_SERVICE_ID_AQUI';
+                   const templateID = 'SEU_TEMPLATE_ID_AQUI';
+
+                   // Dispara o e-mail pegando os dados estruturados do formulário
+                   emailjs.sendForm(serviceID, templateID, form)
+                       .then(() => {
+                           alert(`Obrigado pelo contato, ${nome}! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.`);
+                           form.reset(); // Limpa os campos do formulário após o sucesso
+                       }, (err) => {
+                           alert("Ops! Ocorreu um erro técnico ao enviar sua mensagem. Por favor, tente novamente mais tarde ou use o WhatsApp.");
+                           console.error("Erro detalhado do EmailJS:", err);
+                       })
+                       .finally(() => {
+                           // Restaura o botão ao estado padrão após o término da requisição
+                           btnEnviar.innerText = "Enviar Mensagem";
+                           btnEnviar.disabled = false;
+                       });
                });
            }
 
@@ -148,7 +176,6 @@
                    const elementTop = element.getBoundingClientRect().top;
                    const windowHeight = window.innerHeight;
                    
-                   // Ativa a animação quando o elemento surge 85% na tela
                    if (elementTop < windowHeight * 0.85) {
                        element.style.opacity = "1";
                        element.style.transform = "translateY(0)";
@@ -157,15 +184,13 @@
                });
            };
 
-           // Configuração do estado inicial escondido para os elementos
            fadeElements.forEach(element => {
                element.style.opacity = "0";
                element.style.transform = "translateY(20px)";
            });
 
-           // Ativa o detector de rolagem
            window.addEventListener('scroll', checkScroll);
-           checkScroll(); // Executa uma vez no início caso haja elementos visíveis
+           checkScroll(); 
        });
    </script>
 
