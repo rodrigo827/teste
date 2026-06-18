@@ -1,0 +1,223 @@
+/* ==========================
+   R&L - PALETA PRETO E VERMELHO
+   ========================== */
+
+:root {
+    --bg-pure-black: #000000;
+    --bg-card: #0d0d0d;
+
+    --primary: #ff0000;
+    --secondary: #cc0000;
+
+    --text-main: #ffffff;
+    --text-muted: #ff6666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-pure-black);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* NAVBAR */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 10%;
+    background-color: rgba(0, 0, 0, 0.95);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.navbar nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.navbar nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: var(--primary);
+}
+
+/* HERO */
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+    background: radial-gradient(circle at center,
+            #330000 0%,
+            #000000 70%);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.highlight {
+    background: linear-gradient(
+        to right,
+        var(--primary),
+        var(--secondary)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 0 auto 2rem auto;
+}
+
+.btn-primary {
+    padding: 0.9rem 2rem;
+    background: linear-gradient(
+        to right,
+        var(--primary),
+        var(--secondary)
+    );
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+}
+
+/* SEÇÕES */
+
+section {
+    padding: 6rem 10% 4rem;
+}
+
+section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* SOBRE */
+
+.about {
+    background: #050505;
+}
+
+.about-container {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.about-text p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+/* SERVIÇOS */
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,0,0,0.15);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(255,0,0,0.25);
+}
+
+.card h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.card p {
+    color: var(--text-muted);
+}
+
+.card.premium {
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 25px rgba(255,0,0,0.25);
+}
+
+.badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* FOOTER */
+
+footer {
+    background: #050505;
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,0,0,0.15);
+}
+
+footer p {
+    color: var(--text-muted);
+}
